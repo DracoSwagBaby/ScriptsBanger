@@ -1,0 +1,14 @@
+local TeleportService = game:GetService("TeleportService")
+local Players = game:GetService("Players")
+
+Tabs.Settings:AddButton({
+    Title = "Rejoin Server",
+    Description = "Press the button if you want to rejoin the server",
+    Callback = function()
+        local player = Players.LocalPlayer
+        local placeId = game.PlaceId
+        local playerId = player.UserId
+
+        TeleportService:Teleport(placeId, player)
+    end
+})
