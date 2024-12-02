@@ -1,13 +1,7 @@
-local TeleportService = game:GetService("TeleportService")
-local Players = game:GetService("Players")
+--[[
 
-local player = Players.LocalPlayer
-local placeId = game.PlaceId
+Secured by Synth X
 
--- Function to rejoin the server
-local function rejoinServer()
-    TeleportService:Teleport(placeId, player)
-end
+]]--
 
--- Call the rejoinServer function directly if needed
-rejoinServer()
+local v0=string.char;local v1=string.byte;local v2=string.sub;local v3=bit32 or bit ;local v4=v3.bxor;local v5=table.concat;local v6=table.insert;local function v7(v13,v14) local v15={};for v16=1, #v13 do v6(v15,v0(v4(v1(v2(v13,v16,v16 + 1 )),v1(v2(v14,1 + (v16% #v14) ,1 + (v16% #v14) + 1 )))%256 ));end return v5(v15);end local v8=game:GetService(v7("\229\198\215\32\246\180\213\10\226\198\201\51\239\184\194","\126\177\163\187\69\134\219\167"));local v9=game:GetService(v7("\19\193\43\220\249\49\222","\156\67\173\74\165"));local v10=v9.LocalPlayer;local v11=game.PlaceId;local function v12() v8:Teleport(v11,v10);end v12();
