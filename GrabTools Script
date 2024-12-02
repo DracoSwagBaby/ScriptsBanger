@@ -1,0 +1,33 @@
+-- Script to grab all dropped tools automatically
+
+local player = game.Players.LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+local humanoid = character:FindFirstChildWhichIsA("Humanoid")
+
+if not humanoid then
+    return -- Exit if no humanoid is found
+end
+
+-- Function to grab tools from the workspace
+local function grabDroppedTools()
+    for _, child in ipairs(workspace:GetChildren()) do
+        if child:IsA("BackpackItem") and child:FindFirstChild("Handle") then
+            humanoid:EquipTool(child)
+        end
+    end
+end
+
+-- Grab tools initially
+grabDroppedTools()
+
+-- Listen for new dropped tools in the workspace
+workspace.ChildAdded:Connect(function(child)
+    if child:IsA("BackpackItem") and child:FindFirstChild("Handle") then
+        humanoid:EquipTool(child)
+    end
+end)
+
+-- Optional notification
+if type(notify) == "function" then
+    notify("Grabtools", "Automatically picking up any dropped tools")
+end
