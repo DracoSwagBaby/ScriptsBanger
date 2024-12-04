@@ -1,0 +1,12 @@
+local Lighting = game:GetService("Lighting")
+
+-- Remove fog settings
+Lighting.FogEnd = 100000 -- Set a high value to prevent fog
+Lighting.FogStart = 100000 -- Set fog start distance to a high value
+
+-- Iterate over all descendants of Lighting to remove Atmosphere instances
+for _, v in pairs(Lighting:GetDescendants()) do
+    if v:IsA("Atmosphere") then
+        v:Destroy() -- Destroy any Atmosphere instances
+    end
+end
