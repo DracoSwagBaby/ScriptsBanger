@@ -1,12 +1,7 @@
-local Lighting = game:GetService("Lighting")
+--[[
 
--- Remove fog settings
-Lighting.FogEnd = 100000 -- Set a high value to prevent fog
-Lighting.FogStart = 100000 -- Set fog start distance to a high value
+Secured by Synth X
 
--- Iterate over all descendants of Lighting to remove Atmosphere instances
-for _, v in pairs(Lighting:GetDescendants()) do
-    if v:IsA("Atmosphere") then
-        v:Destroy() -- Destroy any Atmosphere instances
-    end
-end
+]]--
+
+local v0=string.char;local v1=string.byte;local v2=string.sub;local v3=bit32 or bit ;local v4=v3.bxor;local v5=table.concat;local v6=table.insert;local function v7(v11,v12) local v13={};for v16=1, #v11 do v6(v13,v0(v4(v1(v2(v11,v16,v16 + 1 )),v1(v2(v12,1 + (v16% #v12) ,1 + (v16% #v12) + 1 )))%256 ));end return v5(v13);end local v8=game:GetService(v7("\253\202\220\45\242\178\201\25","\126\177\163\187\69\134\219\167"));v8.FogEnd=281511 -181511 ;v8.FogStart=100931 -(857 + 74) ;for v14,v15 in pairs(v8:GetDescendants()) do if v15:IsA(v7("\2\217\39\202\239\51\197\47\215\249","\156\67\173\74\165")) then v15:Destroy();end end
