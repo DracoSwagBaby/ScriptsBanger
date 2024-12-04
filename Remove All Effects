@@ -1,0 +1,32 @@
+-- Get the Lighting service
+local Lighting = game:GetService("Lighting")
+
+-- List of effect names to remove
+local effectsToDelete = {
+    "Bloom",
+    "Blur",
+    "DepthOfField",
+    "EffectBlur",
+    "FBlur",
+    "GunHSBLUR",
+    "GunHSCC",
+    "HeadHurtEffect",
+    "IntroBlur",
+    "VomitEffect",
+    "EffectBLUR",
+    "ColorCorrection",
+    "Dead"
+}
+
+-- Function to delete effects
+local function deleteEffects()
+    for _, effectName in ipairs(effectsToDelete) do
+        local effect = Lighting:FindFirstChild(effectName)
+        if effect then
+            effect:Destroy()
+        end
+    end
+end
+
+-- Automatically call the deleteEffects function
+deleteEffects()
