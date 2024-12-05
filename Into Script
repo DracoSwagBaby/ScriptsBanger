@@ -1,0 +1,175 @@
+local player = game.Players.LocalPlayer
+local playerGui = player:WaitForChild("PlayerGui")
+
+-- Create ScreenGui
+local screenGui = Instance.new("ScreenGui")
+screenGui.Parent = playerGui
+
+-- Create Full-Screen Black Frame
+local frame = Instance.new("Frame")
+frame.Size = UDim2.new(1, 0, 1, 0) -- Full-screen size
+frame.Position = UDim2.new(0, 0, 0, 0)
+frame.BackgroundColor3 = Color3.fromRGB(0, 0, 0) -- Black
+frame.BorderSizePixel = 0
+frame.Parent = screenGui
+
+-- Function to Create Stars with Rotation and Movement
+local function createStar()
+    local star = Instance.new("ImageLabel")
+    star.Size = UDim2.new(0, math.random(10, 15), 0, math.random(10, 15)) -- Random star size
+    star.Position = UDim2.new(math.random(), 0, math.random(), 0) -- Random position
+    star.BackgroundTransparency = 1
+    star.Image = "rbxassetid://3926305904" -- Star image (Roblox's UI Pack)
+    star.ImageRectOffset = Vector2.new(964, 324) -- Star icon in the UI Pack
+    star.ImageRectSize = Vector2.new(36, 36)
+    star.ImageColor3 = Color3.fromRGB(255, 255, 255)
+    star.Rotation = math.random(0, 360) -- Random rotation
+    star.Parent = frame
+
+    -- Animate the star to rotate and fall while fading out
+    local tweenService = game:GetService("TweenService")
+    local fallTween = tweenService:Create(star, TweenInfo.new(3, Enum.EasingStyle.Linear), {
+        Position = UDim2.new(star.Position.X.Scale, 0, star.Position.Y.Scale + math.random(0.2, 0.5), 0),
+        ImageTransparency = 1,
+        Rotation = star.Rotation + 360
+    })
+    fallTween:Play()
+
+    fallTween.Completed:Connect(function()
+        star:Destroy()
+    end)
+end
+
+-- Continuously Spawn Stars
+spawn(function()
+    while frame.Parent do
+        createStar()
+        wait(0.05) -- Spawn stars at shorter intervals
+    end
+end)
+
+-- Create a "Pulse Effect" Background
+local pulse = Instance.new("Frame")
+pulse.Size = UDim2.new(1.5, 0, 1.5, 0) -- Larger than the screen for the pulsing effect
+pulse.Position = UDim2.new(-0.25, 0, -0.25, 0)
+pulse.BackgroundColor3 = Color3.fromRGB(0, 0, 255)
+pulse.BackgroundTransparency = 0.8
+pulse.ZIndex = -1
+pulse.Parent = frame
+
+-- Pulse Animation
+spawn(function()
+    while pulse.Parent do
+        pulse:TweenSizeAndPosition(
+            UDim2.new(1, 0, 1, 0),
+            UDim2.new(0, 0, 0, 0),
+            Enum.EasingDirection.Out,
+            Enum.EasingStyle.Sine,
+            1,
+            true,
+            function()
+                pulse:TweenSizeAndPosition(
+                    UDim2.new(1.5, 0, 1.5, 0),
+                    UDim2.new(-0.25, 0, -0.25, 0),
+                    Enum.EasingDirection.Out,
+                    Enum.EasingStyle.Sine,
+                    1,
+                    true
+                )
+            end
+        )
+        wait(2)
+    end
+end)
+
+-- Create First TextLabel (Main Text)
+local textLabel1 = Instance.new("TextLabel")
+textLabel1.Size = UDim2.new(1, 0, 0.1, 0) -- Takes up 10% of the screen height
+textLabel1.Position = UDim2.new(0, 0, 0.4, 0) -- Adjusted to reduce space above
+textLabel1.BackgroundTransparency = 1 -- No background
+textLabel1.Text = "Made By Draco"
+textLabel1.Font = Enum.Font.GothamBold
+textLabel1.TextSize = 80
+textLabel1.TextColor3 = Color3.fromRGB(123, 182, 232) -- White text
+textLabel1.TextStrokeTransparency = 0 -- Add an outline
+textLabel1.TextStrokeColor3 = Color3.fromRGB(123, 182, 232) -- Cyan outline
+textLabel1.Parent = frame
+
+-- Create Second TextLabel (Sub-Text with adjusted spacing)
+local textLabel2 = Instance.new("TextLabel")
+textLabel2.Size = UDim2.new(1, 0, 0.05, 0) -- Smaller height to align closely
+textLabel2.Position = UDim2.new(0, 0, 0.5, 0) -- Positioned directly below the main text
+textLabel2.BackgroundTransparency = 1 -- No background
+textLabel2.Text = "discord.gg/synthx"
+textLabel2.Font = Enum.Font.Gotham
+textLabel2.TextSize = 50
+textLabel2.TextColor3 = Color3.fromRGB(200, 200, 200) -- Grayish-white text
+textLabel2.TextStrokeTransparency = 0 -- Add an outline
+textLabel2.TextStrokeColor3 = Color3.fromRGB(255, 0, 255) -- Magenta outline
+textLabel2.Parent = frame
+
+-- Glow Effect for Sub-Text
+local function addGlowEffect(textLabel)
+    local glow = Instance.new("UIGradient")
+    glow.Rotation = 45
+    glow.Color = ColorSequence.new({
+        ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 0, 255)),
+        ColorSequenceKeypoint.new(0.5, Color3.fromRGB(0, 255, 255)),
+        ColorSequenceKeypoint.new(1, Color3.fromRGB(255, 0, 255))
+    })
+    glow.Parent = textLabel
+
+    -- Animate the gradient
+    spawn(function()
+        while textLabel.Parent do
+            glow.Offset = Vector2.new(glow.Offset.X + 0.01, glow.Offset.Y + 0.01)
+            wait(0.03)
+        end
+    end)
+end
+addGlowEffect(textLabel2)
+
+-- Create Loading Bar
+local loadingBarFrame = Instance.new("Frame")
+loadingBarFrame.Size = UDim2.new(0.6, 0, 0.02, 0) -- Width: 60% of screen, Height: 2%
+loadingBarFrame.Position = UDim2.new(0.2, 0, 0.6, 0) -- Centered below the sub-text
+loadingBarFrame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+loadingBarFrame.BackgroundTransparency = 0.5
+loadingBarFrame.BorderSizePixel = 0
+loadingBarFrame.Parent = frame
+
+local loadingBar = Instance.new("Frame")
+loadingBar.Size = UDim2.new(0, 0, 1, 0) -- Start at 0 width
+loadingBar.Position = UDim2.new(0, 0, 0, 0)
+loadingBar.BackgroundColor3 = Color3.fromRGB(255, 255, 255) -- Green bar
+loadingBar.BorderSizePixel = 0
+loadingBar.Parent = loadingBarFrame
+
+local percentageText = Instance.new("TextLabel")
+percentageText.Size = UDim2.new(0.2, 0, 0.02, 0) -- Small text label above the bar
+percentageText.Position = UDim2.new(0.4, 0, 0.58, 0) -- Centered above the bar
+percentageText.BackgroundTransparency = 1
+percentageText.Text = "0%"
+percentageText.Font = Enum.Font.GothamBold
+percentageText.TextSize = 25
+percentageText.TextColor3 = Color3.fromRGB(255, 255, 255) -- White text
+percentageText.Parent = frame
+
+-- Animate Loading Bar
+spawn(function()
+    for i = 1, 100 do
+        loadingBar.Size = UDim2.new(i / 100, 0, 1, 0)
+        percentageText.Text = i .. "%"
+        wait(0.03) -- Adjust speed of loading here
+    end
+
+    -- Fade out after loading
+    wait(2)
+    local tweenService = game:GetService("TweenService")
+    local fadeTween = tweenService:Create(frame, TweenInfo.new(1), { BackgroundTransparency = 1 })
+    fadeTween:Play()
+
+    fadeTween.Completed:Connect(function()
+        screenGui:Destroy() -- Remove the GUI after fading out
+    end)
+end)
