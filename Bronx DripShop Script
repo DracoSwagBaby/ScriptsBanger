@@ -1,0 +1,28 @@
+-- Get the LocalPlayer and PlayerGui
+local player = game.Players.LocalPlayer
+local playerGui = player:WaitForChild("PlayerGui")
+
+-- Try to find the 'Bronx CLOTHING' GUI element
+local bronxMarket2 = playerGui:FindFirstChild("Bronx CLOTHING")
+
+-- Function to enable the GUI
+local function showBronxClothingGUI()
+    if bronxMarket2 then
+        bronxMarket2.Enabled = true  -- Show the GUI
+        print("Bronx CLOTHING GUI has been enabled.")
+    else
+        warn("Bronx CLOTHING GUI element not found! Please ensure the GUI is correctly named and parented under PlayerGui.")
+    end
+end
+
+-- Ensure the GUI is initially hidden
+if bronxMarket2 then
+    bronxMarket2.Enabled = true
+    print("Bronx CLOTHING GUI is hidden initially.")
+else
+    warn("Bronx CLOTHING GUI element not found during initialization!")
+end
+
+-- Example: Call this function directly when needed
+-- Uncomment the line below to manually trigger the GUI opening for testing
+-- showBronxClothingGUI()
