@@ -1,0 +1,56 @@
+local Players = game:GetService("Players")
+local Player = Players.LocalPlayer
+
+local teleportCooldown = false -- Prevents spamming teleportation
+
+-- Function to Create Black Screen with Discord Info (Appears Every Teleport)
+local function createBlackScreen()
+    local playerGui = Player:FindFirstChild("PlayerGui")
+    if not playerGui then return end
+
+    local screenGui = Instance.new("ScreenGui")
+    screenGui.Name = "TeleportBlackout"
+    screenGui.Parent = playerGui
+
+    local frame = Instance.new("Frame")
+    frame.Size = UDim2.new(1, 0, 1, 0)
+    frame.Position = UDim2.new(0, 0, 0, 0)
+    frame.BackgroundColor3 = Color3.new(0, 0, 0)
+    frame.BackgroundTransparency = 0
+    frame.Parent = screenGui
+
+    local textLabel = Instance.new("TextLabel")
+    textLabel.Size = UDim2.new(0.6, 0, 0.2, 0)
+    textLabel.Position = UDim2.new(0.2, 0, 0.55, 0)
+    textLabel.Text = "discord.gg/synthx"
+    textLabel.TextColor3 = Color3.new(1, 1, 1)
+    textLabel.TextScaled = true
+    textLabel.BackgroundTransparency = 1
+    textLabel.Font = Enum.Font.SourceSansBold
+    textLabel.Parent = frame
+
+    local imageLabel = Instance.new("ImageLabel")
+    imageLabel.Size = UDim2.new(0.3, 0, 0.5, 0)
+    imageLabel.Position = UDim2.new(0.35, 0, 0.15, 0)
+    imageLabel.Image = "rbxassetid://122954732244882"
+    imageLabel.BackgroundTransparency = 1
+    imageLabel.Parent = frame
+
+    -- Animate logo spinning
+    task.spawn(function()
+        for i = 0, 360, 5 do
+            if not screenGui.Parent then break end
+            imageLabel.Rotation = i
+            task.wait(0.02)
+        end
+    end)
+
+    -- Remove blackout screen after 1 second
+    task.delay(1, function()
+        if screenGui then
+            screenGui:Destroy()
+        end
+    end)
+
+    return screenGui
+end
