@@ -1,0 +1,39 @@
+local lighting = game:GetService("Lighting")
+
+-- Use Future Lighting for best visuals
+lighting.Technology = Enum.Technology.Future
+
+-- Adjust Lighting for a Bright & Colorful Look (No Overreflection)
+lighting.Brightness = 3 -- Bright but not blinding
+lighting.Ambient = Color3.fromRGB(200, 200, 200) -- Soft but warm ambient light
+lighting.OutdoorAmbient = Color3.fromRGB(180, 180, 180) -- Enhances natural colors
+lighting.GlobalShadows = true -- Keep realistic shadows
+
+-- Remove Sun Rays (Prevents Sun Reflection Glare)
+for _, v in pairs(lighting:GetChildren()) do
+    if v:IsA("SunRaysEffect") then
+        v:Destroy() -- Removes the sun glare
+    end
+end
+
+-- Adjust Bloom for a smooth effect without over-shininess
+local bloom = Instance.new("BloomEffect", lighting)
+bloom.Intensity = 0.15 -- Lower glow effect to avoid shiny spots
+bloom.Size = 40
+bloom.Threshold = 1.2 -- Prevents overexposure
+
+-- Color Correction to Boost Vibrancy (No Reflection)
+local colorCorrection = Instance.new("ColorCorrectionEffect", lighting)
+colorCorrection.Brightness = 0.15 -- Small brightness boost
+colorCorrection.Contrast = 0.5 -- Enhances details without glare
+colorCorrection.Saturation = 0.8 -- Richer colors (without oversaturation)
+colorCorrection.TintColor = Color3.fromRGB(255, 240, 200) -- Warmer tones for a sunny effect
+
+-- No Depth of Field (No Blur, Everything Clear)
+for _, v in pairs(lighting:GetChildren()) do
+    if v:IsA("DepthOfFieldEffect") then
+        v:Destroy() -- Removes any blur effects
+    end
+end
+
+print("Optimized vibrant graphics applied! No sun reflection, clear visuals, summer vibes.")
