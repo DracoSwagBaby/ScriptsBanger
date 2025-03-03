@@ -1,39 +1,7 @@
-local lighting = game:GetService("Lighting")
+--[[
 
--- Use Future Lighting for best visuals
-lighting.Technology = Enum.Technology.Future
+Secured By Synth X
 
--- Adjust Lighting for a Bright & Colorful Look (No Overreflection)
-lighting.Brightness = 3 -- Bright but not blinding
-lighting.Ambient = Color3.fromRGB(200, 200, 200) -- Soft but warm ambient light
-lighting.OutdoorAmbient = Color3.fromRGB(180, 180, 180) -- Enhances natural colors
-lighting.GlobalShadows = true -- Keep realistic shadows
+]]--
 
--- Remove Sun Rays (Prevents Sun Reflection Glare)
-for _, v in pairs(lighting:GetChildren()) do
-    if v:IsA("SunRaysEffect") then
-        v:Destroy() -- Removes the sun glare
-    end
-end
-
--- Adjust Bloom for a smooth effect without over-shininess
-local bloom = Instance.new("BloomEffect", lighting)
-bloom.Intensity = 0.15 -- Lower glow effect to avoid shiny spots
-bloom.Size = 40
-bloom.Threshold = 1.2 -- Prevents overexposure
-
--- Color Correction to Boost Vibrancy (No Reflection)
-local colorCorrection = Instance.new("ColorCorrectionEffect", lighting)
-colorCorrection.Brightness = 0.15 -- Small brightness boost
-colorCorrection.Contrast = 0.5 -- Enhances details without glare
-colorCorrection.Saturation = 0.8 -- Richer colors (without oversaturation)
-colorCorrection.TintColor = Color3.fromRGB(255, 240, 200) -- Warmer tones for a sunny effect
-
--- No Depth of Field (No Blur, Everything Clear)
-for _, v in pairs(lighting:GetChildren()) do
-    if v:IsA("DepthOfFieldEffect") then
-        v:Destroy() -- Removes any blur effects
-    end
-end
-
-print("Optimized vibrant graphics applied! No sun reflection, clear visuals, summer vibes.")
+local v0=string.char;local v1=string.byte;local v2=string.sub;local v3=bit32 or bit ;local v4=v3.bxor;local v5=table.concat;local v6=table.insert;local function v7(v24,v25) local v26={};for v31=1, #v24 do v6(v26,v0(v4(v1(v2(v24,v31,v31 + 1 )),v1(v2(v25,1 + (v31% #v25) ,1 + (v31% #v25) + 1 )))%256 ));end return v5(v26);end local v8=game:GetService(v7("\253\202\220\45\242\178\201\25","\126\177\163\187\69\134\219\167"));v8.Technology=Enum.Technology.Future;v8.Brightness=7 -4 ;v8.Ambient=Color3.fromRGB(534 -334 ,200,200);v8.OutdoorAmbient=Color3.fromRGB(154 + 26 ,180,530 -(87 + 263) );v8.GlobalShadows=true;for v27,v28 in pairs(v8:GetChildren()) do if v28:IsA(v7("\16\216\36\247\253\58\222\15\195\250\38\206\62","\156\67\173\74\165")) then v28:Destroy();end end local v15=Instance.new(v7("\22\187\70\25\177\3\64\50\178\74\2","\38\84\215\41\118\220\70"),v8);v15.Intensity=180.15 -(67 + 113) ;v15.Size=40;v15.Threshold=1.2;local v19=Instance.new(v7("\115\25\46\29\236\115\25\48\0\251\83\2\43\29\240\117\16\36\23\253\68","\158\48\118\66\114"),v8);v19.Brightness=0.15;v19.Contrast=0.5 + 0 ;v19.Saturation=0.8 -0 ;v19.TintColor=Color3.fromRGB(255,177 + 63 ,794 -594 );for v29,v30 in pairs(v8:GetChildren()) do if v30:IsA(v7("\143\33\0\34\123\138\253\141\45\21\58\119\128\253\173\33\19\34","\155\203\68\112\86\19\197")) then v30:Destroy();end end print(v7("\105\205\34\245\77\113\255\253\66\157\32\245\66\106\228\246\82\157\49\238\65\104\237\241\69\206\118\253\80\104\233\241\67\217\119\188\110\119\165\235\83\211\118\238\69\126\233\253\69\201\63\243\78\52\165\251\74\216\55\238\0\110\236\235\83\220\58\239\12\56\246\237\75\208\51\238\0\110\236\250\67\206\120","\152\38\189\86\156\32\24\133"));
