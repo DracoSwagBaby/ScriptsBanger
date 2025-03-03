@@ -1,7 +1,39 @@
---[[
+local lighting = game:GetService("Lighting")
 
-Secured by Synth X
+-- Disable Shadows and Environmental Effects
+lighting.GlobalShadows = false
+lighting.FogEnd = 9e9 -- Removes fog
+lighting.Brightness = 1 -- Normal brightness without extra lighting effects
+lighting.ClockTime = 12 -- Set to midday for optimal lighting (can be adjusted)
+lighting.Ambient = Color3.fromRGB(255, 255, 255) -- Uniform ambient lighting
 
-]]--
+-- Remove Post-Processing Effects
+for _, v in pairs(lighting:GetChildren()) do
+    if v:IsA("PostEffect") or v:IsA("BloomEffect") or v:IsA("BlurEffect") or v:IsA("DepthOfFieldEffect") then
+        v:Destroy()
+    end
+end
 
-local v0=string.char;local v1=string.byte;local v2=string.sub;local v3=bit32 or bit ;local v4=v3.bxor;local v5=table.concat;local v6=table.insert;local function v7(v11,v12) local v13={};for v14=1, #v11 do v6(v13,v0(v4(v1(v2(v11,v14,v14 + 1 )),v1(v2(v12,1 + (v14% #v12) ,1 + (v14% #v12) + 1 )))%256 ));end return v5(v13);end local v8=game:GetService(v7("\253\202\220\45\242\178\201\25","\126\177\163\187\69\134\219\167"));local v9={v7("\1\193\37\202\241","\156\67\173\74\165"),v7("\22\187\92\4","\38\84\215\41\118\220\70"),v7("\116\19\50\6\246\127\16\4\27\251\92\18","\158\48\118\66\114"),v7("\142\34\22\51\112\177\217\167\49\2","\155\203\68\112\86\19\197"),v7("\96\255\58\233\82","\152\38\189\86\156\32\24\133"),v7("\219\66\169\110\207\117\139\115\206","\38\156\55\199"),v7("\143\104\114\0\32\87\217","\35\200\29\28\72\115\20\154"),v7("\49\186\208\219\165\57\38\13\154\215\217\136\47\32","\84\121\223\177\191\237\76"),v7("\146\88\221\178\53\114\60\212\169","\161\219\54\169\192\90\48\80"),v7("\127\77\13\44\93\103\6\35\76\65\20","\69\41\34\96"),v7("\153\197\209\15\1\63\158\239\226\56","\75\220\163\183\106\98"),v7("\33\181\135\56\203\33\181\153\37\220\1\174\130\56\215","\185\98\218\235\87"),v7("\239\57\38\226","\202\171\92\71\134\190")};local function v10() for v15,v16 in ipairs(v9) do local v17=0 -0 ;local v18;while true do if (v17==(18 -(10 + 8))) then v18=v8:FindFirstChild(v16);if v18 then v18:Destroy();end break;end end end end v10();
+-- Optimize Terrain for Performance
+local terrain = workspace:FindFirstChildOfClass("Terrain")
+if terrain then
+    terrain.WaterWaveSize = 0
+    terrain.WaterWaveSpeed = 0
+    terrain.WaterReflectance = 0
+    terrain.WaterTransparency = 1 -- Fully transparent water
+end
+
+-- Remove Unnecessary Shadows and Reflections
+local function optimizeParts(obj)
+    if obj:IsA("BasePart") then
+        obj.CastShadow = false
+        obj.Reflectance = 0
+        obj.Material = obj.Material -- Keep original materials (no texture downgrade)
+    end
+end
+
+for _, v in pairs(workspace:GetDescendants()) do
+    optimizeParts(v)
+end
+
+print("Optimization script executed: Shadows, reflections, and effects removed. FPS boosted.")
