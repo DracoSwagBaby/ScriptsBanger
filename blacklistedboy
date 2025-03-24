@@ -1,0 +1,8 @@
+local blacklist = {
+    ["2003022360"] = true, -- UserId
+    ["7k_ToxicPlayer"] = true  -- Username
+}
+
+return function(userId, username)
+    return blacklist[tostring(userId)] or blacklist[username]
+end
