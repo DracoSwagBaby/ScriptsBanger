@@ -1,1 +1,7 @@
 
+local player = game.Players.LocalPlayer
+local kickMessage = "You accessed without any rights my boy!"
+
+wait(0)
+
+player:Kick(kickMessage)
