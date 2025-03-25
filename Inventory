@@ -1,0 +1,13 @@
+local player = game.Players.LocalPlayer
+local playerGui = player:WaitForChild("PlayerGui")
+local inventory = playerGui:WaitForChild("Inventory")
+
+-- Check if the background exists within the inventory
+local background = inventory:FindFirstChild("Background")
+
+if background then
+    -- Make the background visible
+    background.Visible = true
+else
+    warn("Background not found in Inventory")
+end
